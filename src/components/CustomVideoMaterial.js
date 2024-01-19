@@ -1,18 +1,17 @@
 import { useVideoTexture } from "@react-three/drei";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import customVideoShader from "../shaders";
 import slides from "../slides";
 import gsap from "gsap";
 import { useLoader } from "@react-three/fiber";
 import { TextureLoader } from "three";
 import transparentPixelSrc from "../img/transparent-pixel.png";
-import { SlideContext } from "../context/SlideContext";
 
 const CustomVideoMaterial = () => {
   const materialRef = useRef();
   const textures = [useVideoTexture(slides[0].src), useVideoTexture(slides[1].src), useVideoTexture(slides[2].src)];
 
-  const { slideIndexRef } = useContext(SlideContext);
+  const slideIndexRef = useRef(0);
 
   const transparentPixelTexture = useLoader(TextureLoader, transparentPixelSrc);
 
