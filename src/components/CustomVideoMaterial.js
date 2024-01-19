@@ -8,6 +8,7 @@ import { TextureLoader } from "three";
 import transparentPixelSrc from "../img/transparent-pixel.png";
 
 const CustomVideoMaterial = () => {
+  const [lol, setLol] = useState(0);
   const materialRef = useRef();
   const textures = [useVideoTexture(slides[0].src), useVideoTexture(slides[1].src), useVideoTexture(slides[2].src)];
 
@@ -28,6 +29,7 @@ const CustomVideoMaterial = () => {
         materialRef.current.uniforms.uTexture1.value = textures[currentSlideIndex];
         materialRef.current.uniforms.uTexture2.value = textures[nextSlideIndex];
         slideIndexRef.current = nextSlideIndex;
+        setLol(1);
       },
     });
 
@@ -59,17 +61,21 @@ const CustomVideoMaterial = () => {
     };
   }, []);
 
-  const uniforms = {
-    uTexture1: { value: transparentPixelTexture },
-    uTexture2: { value: textures[0] },
-    uOffsetAmount: { value: 2.25 },
-    uColumnsCount: { value: 3 },
-    uTransitionProgress: { value: 1 },
-    uInputResolution: { value: [16, 9] },
-    uOutputResolution: { value: [16, 9] },
-    uAngle: { value: (45 * Math.PI) / 180 },
-    uScale: { value: 3 },
-  };
+  // Usage
+  const uniforms = useMemo(
+    () => ({
+      uTexture1: { value: transparentPixelTexture },
+      uTexture2: { value: textures[0] },
+      uOffsetAmount: { value: 2.25 },
+      uColumnsCount: { value: 3 },
+      uTransitionProgress: { value: 1 },
+      uInputResolution: { value: [16, 9] },
+      uOutputResolution: { value: [16, 9] },
+      uAngle: { value: (45 * Math.PI) / 180 },
+      uScale: { value: 3 },
+    }),
+    []
+  );
 
   return <shaderMaterial ref={materialRef} attach='material' args={[customVideoShader]} uniforms={uniforms} toneMapped={false} />;
 };
