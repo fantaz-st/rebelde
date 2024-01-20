@@ -107,3 +107,16 @@
 .caption h1 span {
   display: inline-block;
 }
+
+@media screen and (max-width: 640px) {
+  .slideFooter {
+    display: flex;
+  }
+  .caption {
+    max-width: 100vw;
+    top: 70%;
+  }
+  .caption h1 {
+    font-size: 3rem;
+  }
+}

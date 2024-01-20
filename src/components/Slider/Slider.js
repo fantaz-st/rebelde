@@ -49,25 +49,22 @@ const Mesh = ({ captionRef, indexRef, transitionRef }) => {
         const words = slides[slideIndexRef.current].caption.split(" ");
         const html = words.map((word, i) => `<span key=${i}>${word}</span>`).join(" ");
         captionRef.current.innerHTML = html;
-        gsap.from(captionRef.current.children, { y: "100%", rotationZ: "10", opacity: 0, delay: 1, stagger: 0.1, ease: "power2.out" });
+        gsap.from(captionRef.current.children, { y: "100%", rotationZ: "10", opacity: 0, stagger: 0.1, ease: "power2.out" });
       };
 
       tl.to(materialRef.current.uniforms.uTransitionProgress, {
         value: 1,
-        duration: 1.15,
+        duration: 0.8,
         ease: "power2.out",
       })
         .to(captionRef.current.children, {
           delay: -1,
           opacity: 0,
           ease: "power2.out",
-          duration: 0.1,
-
           onComplete: changeText,
         })
         .to(indexRef.current, {
           y: "-100%",
-          duration: 1,
           ease: "power2.out",
           onComplete: () => {
             indexRef.current.textContent = `0${slideIndexRef.current + 1}`;
