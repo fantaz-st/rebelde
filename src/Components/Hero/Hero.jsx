@@ -8,31 +8,31 @@ import fragment from "../../shaders/fragment";
 import classes from "./Hero.module.css";
 import gsap from "gsap";
 
-const HeroShaderMaterial = shaderMaterial(
-  {
-    iTime: 0,
-    iResolution: new Vector2(window.innerWidth, window.innerHeight),
-    iMouse: new Vector2(0, 0),
-    iZoomOffset: 0,
-    iInitialXOffset: 0,
-    iPortfolioScrollPercentage: 0,
-  },
-  vertex,
-  fragment
-);
+// HeroShaderMaterial initialization
+let HeroShaderMaterial = null;
 
-extend({ HeroShaderMaterial });
+if (typeof window !== "undefined") {
+  HeroShaderMaterial = shaderMaterial(
+    {
+      iTime: 0,
+      iResolution: new Vector2(window.innerWidth, window.innerHeight),
+      iMouse: new Vector2(0, 0),
+      iZoomOffset: 0,
+      iInitialXOffset: 0,
+      iPortfolioScrollPercentage: 0,
+    },
+    vertex,
+    fragment
+  );
+
+  extend({ HeroShaderMaterial });
+}
 
 const HeroCanvas = ({ animateSlider }) => {
   const zoomObj = useRef({ value: 0 });
-
   const [zoomOffset, setZoomOffset] = useState(0);
-
   const [isZoomed, setIsZoomed] = useState(false);
   const shaderRef = useRef();
-
-  // const scroll = useScroll();
-
   const rawMouse = useRef(new Vector2(0, 0));
   const smoothedMouse = useRef(new Vector2(0, 0));
 
@@ -42,12 +42,8 @@ const HeroCanvas = ({ animateSlider }) => {
       duration: 2,
       value: isZoomed ? 0 : 1,
       ease: "power1.inOut",
-      /* onStart: () => {
-        console.log("Starting the zoom");
-      }, */
       onUpdate: () => {
         setZoomOffset(zoomObj.current.value);
-        // console.log(zoomObj.current.value);
       },
     });
   };
@@ -84,16 +80,12 @@ const HeroCanvas = ({ animateSlider }) => {
     shaderRef.current.uniforms.iMouse.value = smoothedMouse.current;
 
     shaderRef.current.uniforms.iZoomOffset.value = zoomOffset;
-
-    /*  if (scroll) {
-      shaderRef.current.uniforms.iPortfolioScrollPercentage.value = scroll.offset;
-    } */
   });
 
   return (
     <mesh>
       <planeGeometry args={[2, 2]} />
-      <heroShaderMaterial ref={shaderRef} />
+      {HeroShaderMaterial && <heroShaderMaterial ref={shaderRef} />}
     </mesh>
   );
 };

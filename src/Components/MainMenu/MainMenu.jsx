@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import styles from "./MainMenu.module.css";
-// import { Link } from 'react-router-dom';
 
 const MainMenu = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [windowWidth, setWindowWidth] = useState(0); // Default to 0
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   useEffect(() => {
+    setWindowWidth(window.innerWidth);
+
     const handleMouseMove = (event) => {
       setMousePosition({ x: event.clientX, y: event.clientY });
     };
@@ -26,9 +27,12 @@ const MainMenu = () => {
   }, []);
 
   useEffect(() => {
-    const shouldOpenNav = mousePosition.y < 300 && mousePosition.x > Math.min(windowWidth / 2, windowWidth - 800);
+    if (windowWidth > 0) {
+      // Ensure windowWidth is valid
+      const shouldOpenNav = mousePosition.y < 300 && mousePosition.x > Math.min(windowWidth / 2, windowWidth - 800);
 
-    setIsNavOpen(shouldOpenNav);
+      setIsNavOpen(shouldOpenNav);
+    }
   }, [mousePosition, windowWidth]);
 
   return (
