@@ -1,0 +1,36 @@
+.container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 4rem;
+  font-size: 4rem;
+  z-index: 2;
+}
+
+.title {
+  font-family: "Roboto Mono", serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 3rem;
+  color: #fff;
+  text-transform: uppercase;
+  line-height: 1.1;
+  overflow: hidden;
+}
+
+.title span {
+  display: block;
+  transform: translateY(100%);
+  letter-spacing: -0.05em;
+}
+
+@media screen and (max-width: 460px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+}

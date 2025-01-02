@@ -1,0 +1,27 @@
+.container {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  overflow: hidden;
+  z-index: 9;
+  height: 100vh;
+  width: 100%;
+}
+
+.slider {
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* animation: slider-rotation 12s ease-in-out infinite alternate; */
+}
+@keyframes slider-rotation {
+  0% {
+    transform: rotate3d(0, 0, 1, -3deg);
+  }
+  100% {
+    transform: rotate3d(0, 0, 1, 3deg);
+  }
+}
