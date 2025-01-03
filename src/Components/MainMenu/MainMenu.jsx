@@ -28,7 +28,6 @@ const MainMenu = () => {
 
   useEffect(() => {
     if (windowWidth > 0) {
-      // Ensure windowWidth is valid
       const shouldOpenNav = mousePosition.y < 300 && mousePosition.x > Math.min(windowWidth / 2, windowWidth - 800);
 
       setIsNavOpen(shouldOpenNav);

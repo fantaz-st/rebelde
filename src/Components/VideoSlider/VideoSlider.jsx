@@ -9,10 +9,13 @@ import classes from "./VideoSlider.module.css";
 import VideoCard from "../VideoCard/VideoCard";
 import { useGSAP } from "@gsap/react";
 import horizontalLoop from "./horizontalHelper";
+import { useAnimation } from "@/context/animation-context";
 
 gsap.registerPlugin(ScrollTrigger, Observer, Draggable);
 
-const VideoSlider = ({ animateSlider }) => {
+const VideoSlider = () => {
+  const { animateSlider } = useAnimation();
+
   const containerRef = useRef(null);
   const marqueeWrapperRef = useRef(null);
 

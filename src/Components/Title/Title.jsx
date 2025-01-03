@@ -1,12 +1,14 @@
 import classes from "./Title.module.css";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import { useAnimation } from "@/context/animation-context";
 
 gsap.registerPlugin(useGSAP);
 
 const Title = () => {
   const containerRef = useRef();
+  const { animateHero } = useAnimation();
 
   useGSAP(
     () => {
@@ -19,6 +21,17 @@ const Title = () => {
     },
     { scope: containerRef }
   );
+
+  useEffect(() => {
+    if (animateHero) {
+      gsap.to(containerRef.current, {
+        y: "100%",
+        opacity: 0,
+        duration: 1,
+        ease: "power2.out",
+      });
+    }
+  }, [animateHero]);
 
   return (
     <div className={classes.container} ref={containerRef}>
