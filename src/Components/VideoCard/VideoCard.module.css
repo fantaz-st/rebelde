@@ -35,7 +35,7 @@
 
 .titleBar {
   position: absolute;
-  top: -50px;
+  top: -60px;
   left: 0;
   pointer-events: none;
   z-index: 6;

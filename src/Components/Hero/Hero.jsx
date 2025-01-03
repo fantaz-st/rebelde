@@ -1,5 +1,5 @@
 import React from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useSize } from "@react-three/fiber";
 import { shaderMaterial } from "@react-three/drei";
 import { Vector2 } from "three";
 import { extend } from "@react-three/fiber";
@@ -12,7 +12,7 @@ import { useAnimation } from "@/context/animation-context";
 const HeroShaderMaterial = shaderMaterial(
   {
     iTime: 0,
-    iResolution: new Vector2(window.innerWidth, window.innerHeight),
+    iResolution: new Vector2(1920, 1080),
     iMouse: new Vector2(0, 0),
     iZoomOffset: 0,
   },
