@@ -8,7 +8,8 @@ gsap.registerPlugin(useGSAP);
 
 const Title = () => {
   const containerRef = useRef();
-  const { animateHero } = useAnimation();
+  const buttonRef = useRef();
+  const { animateHero, triggerAnimations } = useAnimation();
 
   useGSAP(
     () => {
@@ -24,7 +25,7 @@ const Title = () => {
 
   useEffect(() => {
     if (animateHero) {
-      gsap.to(containerRef.current, {
+      gsap.to([containerRef.current, buttonRef.current], {
         y: "100%",
         opacity: 0,
         duration: 1,
@@ -34,22 +35,38 @@ const Title = () => {
   }, [animateHero]);
 
   return (
-    <div className={classes.container} ref={containerRef}>
-      <div className={classes.text} data-cursor-size='xxl'>
-        <h1 className={classes.title}>
-          <span>But my dreams they aren't as empty</span>
-        </h1>
-        <h1 className={classes.title}>
-          <span>As my conscience seems to be</span>
-        </h1>
-        <h1 className={classes.title}>
-          <span>I have hours, only lonely</span>
-        </h1>
-        <h1 className={classes.title}>
-          <span>My love is vengeance That's never free</span>
-        </h1>
+    <>
+      <div className={classes.container} ref={containerRef}>
+        <div className={classes.text} data-cursor-size='xxl'>
+          <h1 className={classes.title}>
+            <span>But my dreams they aren't as empty</span>
+          </h1>
+          <h1 className={classes.title}>
+            <span>As my conscience seems to be</span>
+          </h1>
+          <h1 className={classes.title}>
+            <span>I have hours, only lonely</span>
+          </h1>
+          <h1 className={classes.title}>
+            <span>My love is vengeance That's never free</span>
+          </h1>
+        </div>
       </div>
-    </div>
+      <button
+        ref={buttonRef}
+        onClick={triggerAnimations}
+        style={{
+          padding: "0.5rem",
+          fontFamily: "Inter",
+          position: "absolute",
+          bottom: "10%",
+          left: "90%",
+          zIndex: 999999,
+        }}
+      >
+        Animate Slider
+      </button>
+    </>
   );
 };
 

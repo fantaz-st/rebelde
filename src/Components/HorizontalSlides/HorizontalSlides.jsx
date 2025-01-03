@@ -18,7 +18,7 @@ const HorizontalSlides = () => {
     const cards = cardsRef.current;
     const totalWidth = cards.length * cards[0].offsetWidth;
 
-    gsap.set(container, { x: "100vw", opacity: 0 });
+    // gsap.set(container, { x: "100vw", opacity: 0 });
 
     if (animateSlider) {
       gsap.to(container, {
